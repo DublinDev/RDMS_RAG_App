@@ -1,0 +1,119 @@
+# RMDService RAG CLI App
+
+This is a Retrieval-Augmented Generation (RAG) application that lets users interactively query documents sourced from [rmdservice.com](https://rmdservice.com/about-us) using natural language.
+
+It loads PDF documents into an in-memory vector database, enabling contextual question-answering using OpenAI models and LangChain components.
+
+---
+
+## 🧠 Features
+
+- 💬 Ask natural language questions about RMDService documentation
+- 📄 Automatically indexes all PDFs in the `./docs/` folder
+- ⚡ Real-time command-line chat with GPT-4o and OpenAI Embeddings
+- 🔍 Fast and simple development with `MemoryVectorStore`
+- 🧩 Built using LangChain, LangGraph, and OpenAI tools
+
+---
+
+## 📁 Project Structure
+
+```
+.
+├── docs/                         # Folder containing all PDF files
+│   └── *.pdf                     # (Add your own docs here)
+├── .env                          # Your OpenAI API key
+├── new.tutorial.ts              # Main TypeScript RAG application
+└── README.md
+```
+
+---
+
+## ⚙️ Prerequisites
+
+- Node.js 18+
+- An OpenAI API key
+
+---
+
+## 🛠️ Installation
+
+1. **Clone the repository:**
+
+```bash
+git clone https://github.com/your-username/rmd-rag-cli.git
+cd rmd-rag-cli
+```
+
+2. **Install dependencies:**
+
+```bash
+npm install
+```
+
+3. **Add your OpenAI API key to a `.env` file:**
+
+```env
+OPENAI_API_KEY=sk-...
+```
+
+4. **Place PDF files in the `/docs` folder:**
+
+You can download documents from [rmdservice.com](https://rmdservice.com/about-us) or place any related documentation you want to query.
+
+---
+
+## 🚀 Usage
+
+```bash
+npx ts-node new.tutorial.ts
+```
+
+Then simply type your questions at the prompt:
+
+```
+💬 Ask a question (or type 'exit'): What is the purpose of message 101?
+🗣️  The purpose of message 101 is...
+```
+
+Type `exit` to quit.
+
+---
+
+## 🧪 Example Questions
+
+- What is message 101 used for?
+- Who can send registration requests?
+- How is customer data handled?
+- What does the market gateway activity involve?
+
+---
+
+## 🧱 Built With
+
+- [LangChain](https://js.langchain.com/)
+- [LangGraph](https://www.langchain.com/langgraph)
+- [OpenAI GPT-4o](https://openai.com/)
+- [Node.js](https://nodejs.org/)
+- [PDFLoader](https://js.langchain.com/docs/modules/data_connection/document_loaders/pdf/)
+
+---
+
+## 🧭 Roadmap Ideas
+
+- 🔐 Switch to persistent vector store (e.g. Chroma or Pinecone)
+- 🌐 Add a web UI (Next.js or simple frontend)
+- 📊 Show source document references in responses
+- 🧾 Log questions/answers to file
+
+---
+
+## 📄 License
+
+MIT
+
+---
+
+## 🙌 Acknowledgements
+
+Thanks to [rmdservice.com](https://rmdservice.com/about-us) for making their documentation publicly accessible.
