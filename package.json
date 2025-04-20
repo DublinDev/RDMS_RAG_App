@@ -1,0 +1,36 @@
+{
+  "name": "rdms_rag_chatbot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@langchain/community": "^0.3.37",
+    "@langchain/core": "^0.3.43",
+    "@langchain/langgraph": "^0.2.60",
+    "@langchain/mongodb": "^0.1.0",
+    "@langchain/openai": "^0.5.0",
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.4.7",
+    "exceljs": "^4.4.0",
+    "langchain": "^0.3.19",
+    "mongodb": "^6.15.0",
+    "pdf-parse": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/mongodb": "^4.0.6",
+    "@types/node": "^22.13.14",
+    "@types/pdf-parse": "^1.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "type": "module"
+}
