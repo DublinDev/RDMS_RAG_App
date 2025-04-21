@@ -1,11 +1,3 @@
 node_modules/
+old_files/
 .env
-
-index.chat_gpt.ts
-index.chat_gpt.old.ts
-index.deepseek.ts
-mongo-test.ts
-new.tutorial.old.ts
-convert.ts
-output.json
-market-schema-guide-v6-2.xlsx
