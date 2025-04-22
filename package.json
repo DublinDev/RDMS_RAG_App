@@ -13,7 +13,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@langchain/community": "^0.3.37",
+    "@langchain/community": "^0.3.41",
     "@langchain/core": "^0.3.43",
     "@langchain/langgraph": "^0.2.60",
     "@langchain/mongodb": "^0.1.0",
