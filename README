@@ -1,18 +1,8 @@
-# RMDService RAG CLI App
+# MongoDB RAG Chatbot
 
-This is a Retrieval-Augmented Generation (RAG) application that lets users interactively query documents sourced from [rmdservice.com](https://rmdservice.com/about-us) using natural language.
+This project is a RAG (Retrieval-Augmented Generation) chatbot that allows you to query documents stored in MongoDB Atlas using vector search powered by OpenAI embeddings.
 
-It loads PDF documents into an in-memory vector database, enabling contextual question-answering using OpenAI models and LangChain components.
-
----
-
-## 🧠 Features
-
-- 💬 Ask natural language questions about RMDService documentation
-- 📄 Automatically indexes all PDFs in the `./docs/` folder
-- ⚡ Real-time command-line chat with GPT-4o and OpenAI Embeddings
-- 🔍 Fast and simple development with `MemoryVectorStore`
-- 🧩 Built using LangChain, LangGraph, and OpenAI tools
+It supports uploading and indexing PDFs on demand, and uses LangGraph to manage the RAG workflow.
 
 ---
 
@@ -20,100 +10,95 @@ It loads PDF documents into an in-memory vector database, enabling contextual qu
 
 ```
 .
-├── docs/                         # Folder containing all PDF files
-│   └── *.pdf                     # (Add your own docs here)
-├── .env                          # Your OpenAI API key
-├── new.tutorial.ts              # Main TypeScript RAG application
-└── README.md
+├── docs/                   # Folder for source PDFs
+├── node_modules/
+├── src/
+│   ├── mongodb-rag-debug.ts    # Main script (can upload + query documents)
+│   └── new.tutorial.ts         # Older version / experiments
+├── .env                    # Environment variables (API keys etc)
+├── package.json
+├── tsconfig.json
+└── README                  # This file
 ```
 
 ---
 
-## ⚙️ Prerequisites
+## 🧪 Setup
 
-- Node.js 18+
-- An OpenAI API key
-
----
-
-## 🛠️ Installation
-
-1. **Clone the repository:**
+### 1. Clone and install
 
 ```bash
-git clone https://github.com/your-username/rmd-rag-cli.git
-cd rmd-rag-cli
-```
-
-2. **Install dependencies:**
-
-```bash
+git clone <repo>
+cd <repo>
 npm install
 ```
 
-3. **Add your OpenAI API key to a `.env` file:**
+### 2. Configure `.env`
+
+Create a `.env` file with the following:
 
 ```env
-OPENAI_API_KEY=sk-...
+MONGODB_ATLAS_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net
 ```
 
-4. **Place PDF files in the `/docs` folder:**
+Make sure you have:
 
-You can download documents from [rmdservice.com](https://rmdservice.com/about-us) or place any related documentation you want to query.
+- A vector index on the `embedding` field of your `rmd_rag.documents` collection
+- Set to 1536 dimensions (`text-embedding-3-small`)
+- Cosine similarity
 
 ---
 
 ## 🚀 Usage
 
+### ➤ Query existing indexed documents:
+
 ```bash
-npx ts-node ./src/mongodb-rag-debug.ts
+ts-node src/mongodb-rag-debug.ts
 ```
 
-Then simply type your questions at the prompt:
+### ➤ Upload new documents from `./docs` and re-index:
 
+```bash
+ts-node src/mongodb-rag-debug.ts --upload
 ```
-💬 Ask a question (or type 'exit'): What is the purpose of message 101?
-🗣️  The purpose of message 101 is...
+
+### ➤ Create jsonl file with more contextual chunks:
+
+```bash
+ts-node src/chunked.ts
 ```
 
-Type `exit` to quit.
+### ➤ Upload jsonl files:
+
+```bash
+ts-node src/mongo-rag-jsonl.ts
+```
+
+This will:
+
+- Read all PDFs from `./docs`
+- Chunk and embed them
+- Upload them into MongoDB with vector search support
 
 ---
 
-## 🧪 Example Questions
+## 🧠 How it Works
 
-- What is message 101 used for?
-- Who can send registration requests?
-- How is customer data handled?
-- What does the market gateway activity involve?
-
----
-
-## 🧱 Built With
-
-- [LangChain](https://js.langchain.com/)
-- [LangGraph](https://www.langchain.com/langgraph)
-- [OpenAI GPT-4o](https://openai.com/)
-- [Node.js](https://nodejs.org/)
-- [PDFLoader](https://js.langchain.com/docs/modules/data_connection/document_loaders/pdf/)
+- PDFs are split into chunks with LangChain
+- OpenAI's `text-embedding-3-small` is used to embed chunks
+- Embeddings are stored in MongoDB Atlas with a vector index
+- LangGraph powers the RAG pipeline:
+  - Retrieves relevant chunks
+  - Sends them to OpenAI (`gpt-4o-mini`)
+  - Generates answers based only on context
 
 ---
 
-## 🧭 Roadmap Ideas
+## 🛠️ Optional: Programmatically create the vector index
 
-- 🔐 Switch to persistent vector store (e.g. Chroma or Pinecone)
-- 🌐 Add a web UI (Next.js or simple frontend)
-- 📊 Show source document references in responses
-- 🧾 Log questions/answers to file
+You can create your MongoDB vector index via API. See the script or ask for a helper.
 
 ---
 
-## 📄 License
-
-MIT
-
----
-
-## 🙌 Acknowledgements
-
-Thanks to [rmdservice.com](https://rmdservice.com/about-us) for making their documentation publicly accessible.
+Let me know if you'd like a frontend UI or Docker setup next.
